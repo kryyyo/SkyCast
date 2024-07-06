@@ -21,14 +21,14 @@ You need the following to run the application:
    git clone https://github.com/your-username/your-repo.git
    ```
 
-2. Run this for TypeScript support.
+2. Run this on the root folder of SkyCast for TypeScript support.
 
    ```bash
    npm install -g typescript
    npm install --save-dev @types/node
    ```
 
-3. Compile script:
+3. Compile script on the root folder of SkyCast:
 
    ```bash
    tsc script.ts
