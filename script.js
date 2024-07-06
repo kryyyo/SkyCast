@@ -38,7 +38,7 @@ var _this = this;
 // END INTERFACES
 // START CONSTANTS
 // Enter your api key from https://openweathermap.org
-var API_KEY = "bc9a0f21c1d099032d99f6da7a3941a8";
+var API_KEY = "api-key";
 var WEATHER_API_URL = "https://api.openweathermap.org";
 // END CONSTANTS
 // START LISTENERS
