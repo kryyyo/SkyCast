@@ -8,15 +8,23 @@
   </head>
   <body>
     <div class="container">
-      <h1>Location Information</h1>
-      <form id="locationForm">
-        <label for="locationInput">Enter a location:</label>
-        <input type="text" id="locationInput" list="locationOptions" required />
-        <datalist id="locationOptions"></datalist>
-        <button type="submit">Get Information</button>
-      </form>
+      <div class="header">
+        <img alt="cloud-with-sun-behind" src="/assets/logo.png" id="logo" />
+        <form id="locationForm">
+          <input
+            type="text"
+            id="locationInput"
+            list="locationOptions"
+            required
+            placeholder="Search City"
+          />
+          <datalist id="locationOptions"></datalist>
+          <button type="submit" id="checkForecast">Check Forecast</button>
+        </form>
+      </div>
       <div id="infoDisplay">
         <!-- Information will be displayed here -->
+        <h5>Select a City to Start!</h5>
       </div>
     </div>
     <script src="script.js"></script>

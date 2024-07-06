@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   display: flex;
@@ -9,16 +15,65 @@ body {
 }
 
 .container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 300px;
+  background-color: #f0f0f0;
+  padding: 3rem;
+  width: 50vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-h1 {
-  margin-bottom: 20px;
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+#logo {
+  height: 100%;
+  width: 25%;
+  object-fit: contain;
+}
+
+#locationForm {
+  height: 100%;
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 5rem;
+}
+
+#locationInput {
+  flex-grow: 1;
+  border-radius: 16px;
+  border: solid 1px #333;
+  background-color: #f0f0f0;
+  font-size: 12px;
+  padding: 10px 20px;
+  padding-left: 2rem;
+  margin-top: 0.65rem;
+  margin-right: 3rem;
+  background-image: url("./assets/search-icon.png"); /* Replace with your icon path */
+  background-repeat: no-repeat;
+  background-position: 10px center; /* Adjust icon position */
+  background-size: 12px;
+}
+
+#locationInput::placeholder {
+  color: #333;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   color: #333;
 }
 
@@ -40,23 +95,61 @@ input[type="text"] {
   border-radius: 4px;
 }
 
-button {
+#checkForecast {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  border-radius: 16px;
+  border: solid 1px #2e4b77;
+  background-color: #2e4b77;
+  color: white;
   cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
-button:hover {
-  background-color: #0056b3;
+#checkForecast:hover {
+  background-color: #121e30;
 }
 
 #infoDisplay {
-  margin-top: 20px;
-  padding: 10px;
+  padding: 2rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   text-align: left;
+}
+
+.description {
+  margin-bottom: 1rem;
+}
+
+.overview {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.overviewDetails {
+  display: flex;
+  align-items: center;
+  background-color: rgba(46, 75, 119, 0.2);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.overviewImg {
+  width: 24px;
+  height: auto;
+  margin-right: 1rem;
+}
+
+.details {
+  flex-grow: 1;
+}
+
+.details h6 {
+  margin-bottom: 0.5rem;
+}
+
+#cityCountry {
+  margin-bottom: 0;
 }
