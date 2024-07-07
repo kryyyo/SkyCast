@@ -130,7 +130,7 @@ const fetchLocationSuggestions = async (
 
 const displaySuggestions = (suggestions: LocationSuggestion[]) => {
   const datalist = document.getElementById("locationOptions")!;
-  datalist.innerHTML = "";
+  datalist.textContent = "";
 
   suggestions.forEach((suggestion) => {
     const option = document.createElement("option");
@@ -143,7 +143,7 @@ const displaySuggestions = (suggestions: LocationSuggestion[]) => {
 
 const clearSuggestions = () => {
   const datalist = document.getElementById("locationOptions")!;
-  datalist.innerHTML = "";
+  datalist.textContent = "";
 };
 
 const getSelectedLocation = (): LocationSuggestion | null => {
@@ -199,51 +199,114 @@ const displayWeatherInfo = (weatherData: WeatherData) => {
   const capitalizedDescription = capitalizeEachWord(weatherData.description);
 
   const infoDisplay = document.getElementById("infoDisplay")!;
-  infoDisplay.innerHTML = `
-    <div class="description">
-      <h4>${weatherData.name}, ${weatherData.country}</h4>
-      <h1>${capitalizedDescription}</h1>
-      <h2>${weatherData.temperature}°C</h2>
-      <h6>${formattedTime}</h6>
-    </div>
+  infoDisplay.textContent = "";
 
-    <h6>Today's Overview</h6>
-    <div class="overview">
-      <div class="overviewDetails">
-        <img src="./assets/wind.png" alt="wind-blowing" class="overviewImg" />
-        <div class="details">
-          <h6><strong>Wind Speed:</strong></h6>
-          <p>${weatherData.windspeed} m/s</p>
-        </div>
-      </div>
-      <div class="overviewDetails">
-        <img src="./assets/mist.png" alt="mist" class="overviewImg" />
-        <div class="details">
-          <h6><strong>Pressure:</strong></h6>
-          <p>${weatherData.pressure} hpa</p>
-        </div>
-      </div>
-      <div class="overviewDetails">
-        <img src="./assets/rainy.png" alt="cloud-with-rain" class="overviewImg" />
-        <div class="details">
-          <h6><strong>Humidity:</strong></h6>
-          <p>${weatherData.humidity}%</p>
-        </div>
-      </div>
-      <div class="overviewDetails">
-        <img src="./assets/sun.png" alt="sun-shining" class="overviewImg" />
-        <div class="details">
-          <h6><strong>Feels Like:</strong></h6>
-          <p>${weatherData.feelsLike}°C</p>
-        </div>
-      </div>
-    </div>
-  `;
+  const descriptionDiv = document.createElement("div");
+  descriptionDiv.className = "description";
+
+  const locationElement = document.createElement("h4");
+  locationElement.textContent = `${weatherData.name}, ${weatherData.country}`;
+  descriptionDiv.appendChild(locationElement);
+
+  const descriptionElement = document.createElement("h1");
+  descriptionElement.textContent = capitalizedDescription;
+  descriptionDiv.appendChild(descriptionElement);
+
+  const temperatureElement = document.createElement("h2");
+  temperatureElement.textContent = `${weatherData.temperature}°C`;
+  descriptionDiv.appendChild(temperatureElement);
+
+  const timeElement = document.createElement("h6");
+  timeElement.textContent = formattedTime;
+  descriptionDiv.appendChild(timeElement);
+
+  infoDisplay.appendChild(descriptionDiv);
+
+  const overviewHeader = document.createElement("h6");
+  overviewHeader.textContent = "Today's Overview";
+  infoDisplay.appendChild(overviewHeader);
+
+  const overviewDiv = document.createElement("div");
+  overviewDiv.className = "overview";
+
+  overviewDiv.appendChild(
+    createOverviewDetail(
+      "./assets/wind.png",
+      "wind-blowing",
+      "Wind Speed:",
+      `${weatherData.windspeed} m/s`
+    )
+  );
+  overviewDiv.appendChild(
+    createOverviewDetail(
+      "./assets/mist.png",
+      "mist",
+      "Pressure:",
+      `${weatherData.pressure} hpa`
+    )
+  );
+  overviewDiv.appendChild(
+    createOverviewDetail(
+      "./assets/rainy.png",
+      "cloud-with-rain",
+      "Humidity:",
+      `${weatherData.humidity}%`
+    )
+  );
+  overviewDiv.appendChild(
+    createOverviewDetail(
+      "./assets/sun.png",
+      "sun-shining",
+      "Feels Like:",
+      `${weatherData.feelsLike}°C`
+    )
+  );
+
+  infoDisplay.appendChild(overviewDiv);
+};
+
+const createOverviewDetail = (
+  imgSrc: string,
+  imgAlt: string,
+  label: string,
+  value: string
+) => {
+  const overviewDetailDiv = document.createElement("div");
+  overviewDetailDiv.className = "overviewDetails";
+
+  const imgElement = document.createElement("img");
+  imgElement.src = imgSrc;
+  imgElement.alt = imgAlt;
+  imgElement.className = "overviewImg";
+  overviewDetailDiv.appendChild(imgElement);
+
+  const detailsDiv = document.createElement("div");
+  detailsDiv.className = "details";
+
+  const labelElement = document.createElement("h6");
+  const strongElement = document.createElement("strong");
+  strongElement.textContent = label;
+  labelElement.appendChild(strongElement);
+  detailsDiv.appendChild(labelElement);
+
+  const valueElement = document.createElement("p");
+  valueElement.textContent = value;
+  detailsDiv.appendChild(valueElement);
+
+  overviewDetailDiv.appendChild(detailsDiv);
+  return overviewDetailDiv;
 };
 
 const displayErrorMessage = (message: string) => {
-  const infoDisplay = document.getElementById("infoDisplay")!;
-  infoDisplay.innerHTML = `<p style="color: red;">${message}</p>`;
+  const infoDisplay = document.getElementById("infoDisplay");
+
+  const pElement = document.createElement("p");
+  pElement.style.color = "red";
+  pElement.textContent = message;
+
+  infoDisplay.textContent = "";
+
+  infoDisplay.appendChild(pElement);
 };
 
 const capitalizeEachWord = (str: string) => {

@@ -38,7 +38,7 @@ var _this = this;
 // END INTERFACES
 // START CONSTANTS
 // Enter your api key from https://openweathermap.org
-var API_KEY = "api-key";
+var API_KEY = "bc9a0f21c1d099032d99f6da7a3941a8";
 var WEATHER_API_URL = "https://api.openweathermap.org";
 // END CONSTANTS
 // START LISTENERS
@@ -178,7 +178,7 @@ var fetchLocationSuggestions = function (userInput) { return __awaiter(_this, vo
 }); };
 var displaySuggestions = function (suggestions) {
     var datalist = document.getElementById("locationOptions");
-    datalist.innerHTML = "";
+    datalist.textContent = "";
     suggestions.forEach(function (suggestion) {
         var option = document.createElement("option");
         option.value = "".concat(suggestion.name, ", ").concat(suggestion.country);
@@ -189,7 +189,7 @@ var displaySuggestions = function (suggestions) {
 };
 var clearSuggestions = function () {
     var datalist = document.getElementById("locationOptions");
-    datalist.innerHTML = "";
+    datalist.textContent = "";
 };
 var getSelectedLocation = function () {
     var locationInput = document.getElementById("locationInput");
@@ -235,11 +235,61 @@ var displayWeatherInfo = function (weatherData) {
     var formattedTime = formatTime(currentTime);
     var capitalizedDescription = capitalizeEachWord(weatherData.description);
     var infoDisplay = document.getElementById("infoDisplay");
-    infoDisplay.innerHTML = "\n    <div class=\"description\">\n      <h4>".concat(weatherData.name, ", ").concat(weatherData.country, "</h4>\n      <h1>").concat(capitalizedDescription, "</h1>\n      <h2>").concat(weatherData.temperature, "\u00B0C</h2>\n      <h6>").concat(formattedTime, "</h6>\n    </div>\n\n    <h6>Today's Overview</h6>\n    <div class=\"overview\">\n      <div class=\"overviewDetails\">\n        <img src=\"./assets/wind.png\" alt=\"wind-blowing\" class=\"overviewImg\" />\n        <div class=\"details\">\n          <h6><strong>Wind Speed:</strong></h6>\n          <p>").concat(weatherData.windspeed, " m/s</p>\n        </div>\n      </div>\n      <div class=\"overviewDetails\">\n        <img src=\"./assets/mist.png\" alt=\"mist\" class=\"overviewImg\" />\n        <div class=\"details\">\n          <h6><strong>Pressure:</strong></h6>\n          <p>").concat(weatherData.pressure, " hpa</p>\n        </div>\n      </div>\n      <div class=\"overviewDetails\">\n        <img src=\"./assets/rainy.png\" alt=\"cloud-with-rain\" class=\"overviewImg\" />\n        <div class=\"details\">\n          <h6><strong>Humidity:</strong></h6>\n          <p>").concat(weatherData.humidity, "%</p>\n        </div>\n      </div>\n      <div class=\"overviewDetails\">\n        <img src=\"./assets/sun.png\" alt=\"sun-shining\" class=\"overviewImg\" />\n        <div class=\"details\">\n          <h6><strong>Feels Like:</strong></h6>\n          <p>").concat(weatherData.feelsLike, "\u00B0C</p>\n        </div>\n      </div>\n    </div>\n  ");
+    infoDisplay.textContent = "";
+    var descriptionDiv = document.createElement("div");
+    descriptionDiv.className = "description";
+    var locationElement = document.createElement("h4");
+    locationElement.textContent = "".concat(weatherData.name, ", ").concat(weatherData.country);
+    descriptionDiv.appendChild(locationElement);
+    var descriptionElement = document.createElement("h1");
+    descriptionElement.textContent = capitalizedDescription;
+    descriptionDiv.appendChild(descriptionElement);
+    var temperatureElement = document.createElement("h2");
+    temperatureElement.textContent = "".concat(weatherData.temperature, "\u00B0C");
+    descriptionDiv.appendChild(temperatureElement);
+    var timeElement = document.createElement("h6");
+    timeElement.textContent = formattedTime;
+    descriptionDiv.appendChild(timeElement);
+    infoDisplay.appendChild(descriptionDiv);
+    var overviewHeader = document.createElement("h6");
+    overviewHeader.textContent = "Today's Overview";
+    infoDisplay.appendChild(overviewHeader);
+    var overviewDiv = document.createElement("div");
+    overviewDiv.className = "overview";
+    overviewDiv.appendChild(createOverviewDetail("./assets/wind.png", "wind-blowing", "Wind Speed:", "".concat(weatherData.windspeed, " m/s")));
+    overviewDiv.appendChild(createOverviewDetail("./assets/mist.png", "mist", "Pressure:", "".concat(weatherData.pressure, " hpa")));
+    overviewDiv.appendChild(createOverviewDetail("./assets/rainy.png", "cloud-with-rain", "Humidity:", "".concat(weatherData.humidity, "%")));
+    overviewDiv.appendChild(createOverviewDetail("./assets/sun.png", "sun-shining", "Feels Like:", "".concat(weatherData.feelsLike, "\u00B0C")));
+    infoDisplay.appendChild(overviewDiv);
+};
+var createOverviewDetail = function (imgSrc, imgAlt, label, value) {
+    var overviewDetailDiv = document.createElement("div");
+    overviewDetailDiv.className = "overviewDetails";
+    var imgElement = document.createElement("img");
+    imgElement.src = imgSrc;
+    imgElement.alt = imgAlt;
+    imgElement.className = "overviewImg";
+    overviewDetailDiv.appendChild(imgElement);
+    var detailsDiv = document.createElement("div");
+    detailsDiv.className = "details";
+    var labelElement = document.createElement("h6");
+    var strongElement = document.createElement("strong");
+    strongElement.textContent = label;
+    labelElement.appendChild(strongElement);
+    detailsDiv.appendChild(labelElement);
+    var valueElement = document.createElement("p");
+    valueElement.textContent = value;
+    detailsDiv.appendChild(valueElement);
+    overviewDetailDiv.appendChild(detailsDiv);
+    return overviewDetailDiv;
 };
 var displayErrorMessage = function (message) {
     var infoDisplay = document.getElementById("infoDisplay");
-    infoDisplay.innerHTML = "<p style=\"color: red;\">".concat(message, "</p>");
+    var pElement = document.createElement("p");
+    pElement.style.color = "red";
+    pElement.textContent = message;
+    infoDisplay.textContent = "";
+    infoDisplay.appendChild(pElement);
 };
 var capitalizeEachWord = function (str) {
     return str.replace(/\b\w/g, function (char) { return char.toUpperCase(); });
